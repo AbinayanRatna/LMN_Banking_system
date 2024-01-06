@@ -1,4 +1,5 @@
 // T. F. Nusha - 21/ENG/138
+// R. Abinayan - 21/ENG/116
 
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
@@ -29,7 +30,9 @@ class Customer
 	long overDraftNow = 0;
 	string date_tday;
 	string dateCreated;
+        vector<Transaction> transactions;
 
+        void viewTransaction();
 	void depositMoneyFun(Bank &bank, ofstream &MyFile, ofstream &BankFile);
 	void setDate(Administrator & Admin);
 	void withdrawMoney(Bank &bank, ofstream &MyFile, ofstream &BankFile);
