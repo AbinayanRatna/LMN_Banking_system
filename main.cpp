@@ -1,4 +1,5 @@
 // R.Abinayan - 21/ENG/116
+// M.Lalithambigai - 21/ENG/075
 // T.F.Nusha - 21/ENG/138
 
 #include <iostream>
@@ -170,7 +171,148 @@ int main()
 				}
 				else if (user_input_2 == "3")
 				{
-				    
+					cout << "Enter the employee user name  (eg: employee001) : ";
+					cin >> username;
+					password = getPassword();
+					employeeNameArray = bank.employeeNameArray;
+					Employee employeeNow;
+					for (int i = 0; i < employeeNameArray.size(); i++)
+					{
+						if (username == employeeNameArray[i] && password == "Password@1234")
+						{
+							employeeNow = bank.employeeArray[i];
+							login_checker = 0;
+							break;
+						}
+
+						login_checker = 1;
+					}
+
+					if (login_checker == 1)
+					{
+						cout << "Login unsuccessful"<<endl<<endl;
+						login_checker = 0;
+					}
+					else
+					{
+						cout << "Successful login" << endl ;
+						int checker_employee = 0;
+						while (checker_employee != 1)
+						{
+						    string user_input_7;
+							cout << "\ndate : " << Admin.getDate() << endl;
+							float annualInterest = Admin.getAnnualSavingInterest();
+							float overdraftCharge = Admin.getOverdraftCharge();
+							cout << "Annual interest rate is " << annualInterest<<" percentage." << endl;
+							cout << "Overdraft charge is " << overdraftCharge <<" percentage."<< endl;
+							cout<<"Bank balance available : "<<bank.bank_balance<<" .Rs"<<endl<<endl;
+							cout << "1. Create a customer account" << endl;
+							cout << "2. Close the customer account" << endl;
+							cout << "3. Deposit money in account" << endl;
+							cout << "4. Withdraw money from account" << endl;
+							cout << "5. View transactions" << endl;
+							cout << "6. Logout" << endl;
+							cout << "Select an option above : " ;
+							cin >> user_input_7;
+							while(user_input_7!="1"&&user_input_7!="2"&&user_input_7!="3"&&user_input_7!="4"&&user_input_7!="5"&&user_input_7!="6"){
+                            cout<<"Invalid input! Select an option above (1 or 2 or 3 or 4 or 5 or 6): ";
+                            cin>>user_input_7;
+                            }
+                            cout<<endl;
+							user_input_3=stoi(user_input_7);
+							switch (user_input_3)
+							{
+								case 1:
+									{
+										Customer customerCreated;
+										customerCreated.setDate(Admin);
+										employeeNow.createCustomer(customerCreated, bank, CustomerFile);
+										break;
+									}
+
+								case 2:
+									{
+										string customerName;
+										cout << "Enter the name of the customer: ";
+										cin >> customerName;
+										int customerNameCheck=0;
+										for (int i = 0; i < bank.customerArray.size(); i++)
+										{
+											if (customerName == bank.customerArray[i].CustomerName)
+											{
+												bank.customerArray[i].setDate(Admin);
+												employeeNow.closeCustomerAccount(bank.customerArray[i], CustomerFile);
+												customerNameCheck=1;
+												break;
+											}
+										}
+										if(customerNameCheck==0){
+                                            cout<<"No customer found with that name !"<<endl;
+										}
+										break;
+									}
+
+								case 3:
+									{
+										string customerName;
+										int customerNameCheck=0;
+										cout << "Enter the name of the customer: ";
+										cin >> customerName;
+										for (int i = 0; i < bank.customerArray.size(); i++)
+										{
+											if (customerName == bank.customerArray[i].CustomerName)
+											{
+												bank.customerArray[i].setDate(Admin);
+												employeeNow.depositMoney(bank.customerArray[i], bank, CustomerFile, BankFile);
+												customerNameCheck=1;
+												break;
+											}
+										}
+										if(customerNameCheck==0){
+                                            cout<<"No customer found with that name !"<<endl;
+										}
+										break;
+									}
+
+								case 4:
+									{
+										string customerName;
+										int customerNameCheck=0;
+										cout << "Enter the name of the customer: ";
+										cin >> customerName;
+										for (int i = 0; i < bank.customerArray.size(); i++)
+										{
+											if (customerName == bank.customerArray[i].CustomerName)
+											{
+												bank.customerArray[i].setDate(Admin);
+												employeeNow.withDrawMoney(bank.customerArray[i], bank, CustomerFile, BankFile);
+												customerNameCheck=1;
+												break;
+											}
+										}
+										if(customerNameCheck==0){
+                                            cout<<"No customer found with that name !"<<endl;
+										}
+										break;
+									}
+
+								case 5:
+									{
+										employeeNow.viewTransactions(bank);
+										break;
+									}
+
+								case 6:
+									{
+										input = 0;
+										checker_employee = 1;
+										break;
+									}
+
+								default: {}
+							}
+						}
+					}
 				}
 				else if (user_input_2 == "2")
 				{
