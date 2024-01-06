@@ -1,4 +1,5 @@
 // R.Abinayan - 21/ENG/116
+// T.F.Nusha - 21/ENG/138
 
 #include <iostream>
 #include "Administrator.h"
@@ -169,11 +170,115 @@ int main()
 				}
 				else if (user_input_2 == "3")
 				{
-
+				    
 				}
 				else if (user_input_2 == "2")
 				{
+				    
+					int customerArrayElement;
+					cout << "Enter the customer user name (eg: customer001): ";
+					cin >> username;
+					password = getPassword();
+					customerNameArray = bank.customerNameArray;
+					Customer customer;
+					login_checker = 1;
+					for (int i = 0; i < customerNameArray.size(); i++)
+					{
+						if (username == customerNameArray[i] && password == "Password@1234")
+						{
+							customer = bank.customerArray[i];
+							customerArrayElement = i;
+							login_checker = 0;
+							break;
+						}
 
+					}
+
+					if (login_checker == 1)
+					{
+						cout << "Login unsuccessful"<<endl<<endl;
+						login_checker = 0;
+					}
+					else
+					{
+						cout << "Successful login" << endl ;
+						int checker_customer = 0;
+						while (checker_customer != 1)
+						{
+							cout << "\ndate : " << Admin.getDate() << endl;
+							float annualInterest = Admin.getAnnualSavingInterest();
+							float overdraftCharge = Admin.getOverdraftCharge();
+							cout << "Annual interest rate is " << annualInterest<<" percentage." << endl;
+							cout << "Overdraft charge is " << overdraftCharge <<" percentage."<< endl;
+							cout << "Account name : " << customer.CustomerName << endl;
+							cout << "Account type : " << customer.accountType << endl;
+							cout << "Account Contact details : " << customer.customerContact << endl;
+							cout << "Account balance : " << customer.moneyDeposit << endl;
+							cout << "Account overdraft : " << customer.overDraftNow << endl<<endl;
+							string user_input_8;
+							cout << "1. Deposit money in account" << endl;
+							cout << "2. Withdraw money from account" << endl;
+							cout << "3. View transactions" << endl;
+							cout << "4. Logout" << endl;
+							cout << "Select an option above : ";
+							cin >> user_input_8;
+							while(user_input_8!="1"&&user_input_8!="2"&&user_input_8!="3"&&user_input_8!="4"){
+                            cout<<"Invalid input! Select an option above (1 or 2 or 3 or 4): ";
+                            cin>>user_input_8;
+                            }
+							user_input_3=stoi(user_input_8);
+							switch (user_input_3)
+							{
+								case 1:
+									{
+										if (customer.isClosed == false)
+										{
+											customer.setDate(Admin);
+											customer.depositMoneyFun(bank, CustomerFile, BankFile);
+											bank.customerArray[customerArrayElement] = customer;
+										}
+										else
+										{
+											cout << "Cannot do transaction. Account closed already." << endl;
+										}
+
+										break;
+									}
+
+								case 2:
+									{
+										if (customer.isClosed == false)
+										{
+											customer.setDate(Admin);
+											customer.withdrawMoney(bank, CustomerFile, BankFile);
+											bank.customerArray[customerArrayElement] = customer;
+										}
+										else
+										{
+											cout << "Cannot do transaction. Account closed already." << endl;
+										}
+
+										break;
+									}
+
+								case 3:
+									{
+										customer.viewTransaction();
+										break;
+									}
+
+								case 4:
+									{
+										input = 0;
+										checker_customer = 1;
+										cout<<endl;
+										break;
+									}
+
+								default: {}
+							}
+						}
+					}
 				}
 			}
 		}
